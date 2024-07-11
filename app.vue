@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>
-      Hello Nuxt
-    </h1>
+  <div class="bg-slate-600">
+    <NuxtPage />
   </div>
 </template>

@@ -10,13 +10,24 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@sidebase/nuxt-auth": "^0.8.0",
+    "@vee-validate/nuxt": "^4.13.2",
+    "add": "2.0.6",
     "bcrypt": "^5.1.1",
+    "http-status": "^1.7.4",
+    "next-auth": "4.21.1",
     "nuxt": "^3.12.3",
     "nuxt-mongoose": "^1.0.6",
     "slugify": "^1.6.6",
-    "vue": "latest"
+    "validator": "^13.12.0",
+    "vue": "latest",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuetify-nuxt-module": "^0.14.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2"
+    "@types/bcrypt": "^5.0.2",
+    "@types/http-status": "^1.1.2",
+    "@types/validator": "^13.12.0"
   }
 }
