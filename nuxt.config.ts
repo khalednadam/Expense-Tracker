@@ -14,18 +14,12 @@ export default defineNuxtConfig({
   ],
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
+    globalAppMiddleware: true,
     provider: {
       type: "authjs",
     },
   },
   vuetify: {
-    vuetifyOptions: {
-      defaults: {
-        VTextField: {
-          variant: "outlined",
-          density: "compact",
-        },
-      },
-    },
+    vuetifyOptions: "./vuetify.config.ts", // <== you can omit it
   },
 });
