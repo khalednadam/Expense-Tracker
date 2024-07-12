@@ -1,7 +1,7 @@
 import validator from "validator";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
-import User from "../models/user.model";
+import { User } from "../models/user.model";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   if (!body.email) {

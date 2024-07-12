@@ -1,6 +1,6 @@
 import { NuxtAuthHandler } from "#auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "../models/user.model";
+import { User } from "../models/user.model";
 import bcrypt from "bcrypt";
 
 export default NuxtAuthHandler({

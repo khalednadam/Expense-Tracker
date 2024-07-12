@@ -61,6 +61,4 @@ user.statics.isEmailTaken = async function (
   return !!user;
 };
 
-const User = mongoose.model<IUser, IUserModel>("User", user);
-
-export default User;
+export const User = mongoose.model<IUser, IUserModel>("User", user);

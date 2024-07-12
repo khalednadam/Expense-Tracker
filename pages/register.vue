@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useField, useForm } from "vee-validate";
-import { useToast } from "vue-toastification";
-const toast = useToast();
 definePageMeta({
   layout: "auth",
 });
@@ -49,10 +46,8 @@ const submit = async () => {
         email: email.value.value,
       },
     });
-    console.log(stat.user);
-  } catch (err: any) {
-    toast.success("sdf");
-  }
+    await navigateTo("/login");
+  } catch (err: any) {}
 };
 </script>
 <template>
@@ -89,6 +84,12 @@ const submit = async () => {
           </v-text-field>
           <v-btn type="submit">Register</v-btn>
         </form>
+        <p class="text-center mt-4">
+          Already have an account?
+          <span class="underline">
+            <NuxtLink to="/login"> Login </NuxtLink>
+          </span>
+        </p>
       </v-card-text>
     </v-card>
   </NuxtLayout>
