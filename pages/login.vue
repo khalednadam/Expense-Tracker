@@ -5,7 +5,7 @@ definePageMeta({
   layout: "auth",
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/",
+    navigateAuthenticatedTo: "/dashboard",
   },
 });
 
@@ -34,7 +34,7 @@ async function handleLogin() {
     await signIn("credentials", {
       email: email.value.value,
       password: password.value.value,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
   } catch (e) {
     console.log(e);
@@ -43,12 +43,9 @@ async function handleLogin() {
 </script>
 <template>
   <NuxtLayout>
-    <v-card class="w-1/2">
-      <v-card-title> Login</v-card-title>
-
+    <v-card>
+      <v-card-title> <h1 class="text-3xl">Login</h1></v-card-title>
       <v-card-text>
-        <p>Email: {{ email.value.value }}</p>
-        <p>password: {{ password.value.value }}</p>
         <v-text-field
           label="Email"
           v-model="email.value.value"

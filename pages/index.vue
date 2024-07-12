@@ -1,16 +1,17 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "auth",
+  middleware: "auth",
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: "/dashboard",
+  },
 });
-const { data, signOut } = useAuth();
 </script>
 <template>
   <NuxtLayout>
     <v-card class="w-1/2">
       <v-card-title> Welcome</v-card-title>
-      <p v-if="data?.user">
-        {{ data?.user?.email }}
-      </p>
       <v-card-text
         class="flex flex-col w-full justify-center items-center mx-auto p-10"
       >
@@ -19,11 +20,8 @@ const { data, signOut } = useAuth();
             <v-btn class="w-full"> Register </v-btn>
           </NuxtLink>
           <NuxtLink to="/login" class="w-full">
-            <v-btn class="w-full"> Login</v-btn>
+            <v-btn class="w-full">Login</v-btn>
           </NuxtLink>
-          <v-btn class="w-full" color="red" @click="signOut" v-if="data?.user">
-            Sign out</v-btn
-          >
         </div>
       </v-card-text>
     </v-card>

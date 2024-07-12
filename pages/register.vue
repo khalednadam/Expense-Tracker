@@ -2,6 +2,11 @@
 import { useField, useForm } from "vee-validate";
 definePageMeta({
   layout: "auth",
+  middleware: "auth",
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: "/dashboard",
+  },
 });
 
 const { handleSubmit, handleReset } = useForm({
@@ -52,8 +57,8 @@ const submit = async () => {
 </script>
 <template>
   <NuxtLayout>
-    <v-card class="w-1/2">
-      <v-card-title> Register </v-card-title>
+    <v-card>
+      <v-card-title> <h1 class="text-3xl">Register</h1></v-card-title>
       <v-card-text>
         <form @submit.prevent="() => submit()">
           <v-text-field
