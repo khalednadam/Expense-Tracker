@@ -5,7 +5,6 @@ import { User } from "../models/user.model";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   if (!body.email) {
-    console.log(body);
     throw createError({
       message: "Email is required",
       statusCode: httpStatus.BAD_REQUEST,
