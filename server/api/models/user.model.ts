@@ -1,44 +1,50 @@
-// models/User.ts
-import { defineMongooseModel } from "#nuxt/mongoose";
 import mongoose, { Document, Model, Schema } from "mongoose";
 import slugify from "slugify";
 
-interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  slug: string;
-}
-
-interface IUserModel extends Model<IUser> {
-  isEmailTaken(email: string, excludedUserId?: string): Promise<boolean>;
-}
-
-const user = new Schema<IUser>({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: false,
+const user = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: false,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      trim: true,
+      minlength: 8,
+      private: true,
+      unique: false,
+    },
+    profilePicUrl: {
+      type: String,
+      default: null,
+    },
+    totalBalance: {
+      type: Number,
+      default: 0,
+    },
+    currency: {
+      type: String,
+      default: "$",
+      enum: ["$", "€", "₺", "﷼", "¥"],
+    },
+    slug: {
+      type: String,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    trim: true,
-    minlength: 8,
-    private: true,
-    unique: false,
-  },
-  slug: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+    strict: false,
+  }
+);
 
 user.pre("save", function (next) {
   if (this.isNew || this.isModified("name")) {
@@ -61,4 +67,4 @@ user.statics.isEmailTaken = async function (
   return !!user;
 };
 
-export const User = mongoose.model<IUser, IUserModel>("User", user);
+export const User = mongoose.model("User", user);

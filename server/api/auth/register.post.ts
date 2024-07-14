@@ -26,13 +26,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (await User.isEmailTaken(body.email)) {
-    console.log(await User.isEmailTaken(body.email));
-    throw createError({
-      message: "This email is taken",
-      statusCode: httpStatus.BAD_REQUEST,
-    });
-  }
   const hashedPassword = await bcrypt.hash(body.password, 10);
   const user = await User.create({ ...body, password: hashedPassword });
   return {
