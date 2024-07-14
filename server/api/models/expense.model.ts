@@ -1,33 +1,33 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 const expense = new Schema(
   {
     amount: {
       type: Number,
-      required: true
+      required: true,
     },
-    category:{
+    category: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: false
+      required: false,
     },
     type: {
       type: String,
       required: true,
-      enum: ["withdrawal", "deposit"]
+      enum: ["withdrawal", "deposit"],
     },
     serviceName: {
       type: String,
-      required: true
+      required: true,
     },
     user: {
       type: Types.ObjectId,
       required: true,
-      ref: "User"
-    }
+      ref: "User",
+    },
   },
   {
     timestamps: true,
