@@ -6,18 +6,13 @@ const { data, signOut } = useAuth();
     <v-container>
       <v-row class="flex items-center">
         <v-col cols="2">
-          <p class="font-bold text-xl">todoit.app</p>
+          <p class="font-bold text-xl">Expense Tracker</p>
         </v-col>
         <v-col cols="8" class="mx-auto flex flex-col">
           <v-list nav class="flex items-center space-x-4 mx-auto">
             <NuxtLink to="/dashboard">
               <v-list-item :active="$route.name === 'dashboard'" @click="">
                 Dashboard
-              </v-list-item>
-            </NuxtLink>
-            <NuxtLink to="/projects">
-              <v-list-item :active="$route.name === 'projects'" @click="">
-                Projects
               </v-list-item>
             </NuxtLink>
             <NuxtLink to="/settings">
