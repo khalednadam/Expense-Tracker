@@ -1,4 +1,4 @@
-import { getServerSession, getToken } from "#auth";
+import { getServerSession } from "#auth";
 import httpStatus from "http-status";
 import { Expense } from "../models/expense.model";
 export default defineEventHandler(async (event) => {
