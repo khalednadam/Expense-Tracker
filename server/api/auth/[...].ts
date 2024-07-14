@@ -28,9 +28,9 @@ export default NuxtAuthHandler({
             statusMessage: "Unauthorized",
           });
         }
-
         const isValid = await bcrypt.compare(
           credentials.password,
+          // @ts-ignored
           user.password
         );
 
