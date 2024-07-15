@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/icon": "^1.1.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.1",
     "@sidebase/nuxt-auth": "^0.8.0",
@@ -29,6 +30,7 @@
     "vuetify-nuxt-module": "^0.14.1"
   },
   "devDependencies": {
+    "@iconify-json/ph": "^1.1.13",
     "@types/bcrypt": "^5.0.2",
     "@types/http-status": "^1.1.2",
     "@types/validator": "^13.12.0"

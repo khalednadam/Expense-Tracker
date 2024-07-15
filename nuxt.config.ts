@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     "@nuxtjs/tailwindcss",
     "vuetify-nuxt-module",
+    "@nuxt/icon"
   ],
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
