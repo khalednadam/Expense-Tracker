@@ -10,14 +10,14 @@ export default defineEventHandler(async (event) => {
     });
   }
   const q = getQuery(event);
-  const perPage = parseInt(q.perPage as string, 10) || 10; // default to 10 per page
-  const page = parseInt(q.page as string, 10) || 0; // default to page 0
+  // const perPage = parseInt(q.perPage as string, 10) || 10; // default to 10 per page
+  // const page = parseInt(q.page as string, 10) || 0; // default to page 0
 
   const totalExpenses = await Expense.countDocuments();
 
   const expenses = await Expense.find({ user: session.user._id })
-    .limit(perPage)
-    .skip(perPage * page)
+    // .limit(perPage)
+    // .skip(perPage * page)
     .sort({
       name: "asc",
     });
@@ -26,9 +26,9 @@ export default defineEventHandler(async (event) => {
     expenses,
     pagination: {
       total: totalExpenses,
-      perPage,
-      currentPage: page,
-      totalPages: Math.ceil(totalExpenses / perPage),
+      // perPage,
+      // currentPage: page,
+      // totalPages: Math.ceil(totalExpenses / perPage),
     },
   };
 });
