@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "nuxt-mongoose",
+    "@pinia/nuxt",
     "@sidebase/nuxt-auth",
     "@nuxtjs/tailwindcss",
     "vuetify-nuxt-module",
