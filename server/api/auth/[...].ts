@@ -1,6 +1,6 @@
 import { NuxtAuthHandler } from "#auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { User } from "../models/user.model";
+import { UserScheme } from "../models/user.model";
 import bcrypt from "bcrypt";
 
 export default NuxtAuthHandler({
@@ -18,7 +18,7 @@ export default NuxtAuthHandler({
       async authorize(credentials: { email: string; password: string }) {
         // TODO: Fetch user from database
 
-        const user = await User.findOne({
+        const user = await UserScheme.findOne({
           email: credentials.email,
         });
 

@@ -67,4 +67,4 @@ user.statics.isEmailTaken = async function (
   return !!user;
 };
 
-export const User = mongoose.model("User", user);
+export const UserScheme = mongoose.model("User", user);

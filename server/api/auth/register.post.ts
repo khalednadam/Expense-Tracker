@@ -1,7 +1,7 @@
 import validator from "validator";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
-import { User } from "../models/user.model";
+import { UserScheme } from "../models/user.model";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   if (!body.email) {
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const hashedPassword = await bcrypt.hash(body.password, 10);
-  const user = await User.create({ ...body, password: hashedPassword });
+  const user = await UserScheme.create({ ...body, password: hashedPassword });
   return {
     user: { ...user.toObject(), password: undefined },
     status: httpStatus.CREATED,

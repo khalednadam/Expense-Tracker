@@ -1,7 +1,7 @@
 import { getServerSession } from "#auth";
 import httpStatus from "http-status";
 import { Expense } from "../models/expense.model";
-import { User } from "../models/user.model";
+import { UserScheme } from "../models/user.model";
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
   if (!session) {
@@ -30,13 +30,13 @@ export default defineEventHandler(async (event) => {
     });
   }
   const expense = await Expense.create({ ...body, user: session.user._id });
-  const user = await User.findById(session.user._id);
+  const user = await UserScheme.findById(session.user._id);
   if (user && body.type === "withdrawal") {
-    await User.findByIdAndUpdate(session.user._id, {
+    await UserScheme.findByIdAndUpdate(session.user._id, {
       totalBalance: user.totalBalance - parseFloat(body.amount),
     });
   } else if (user && body.type === "deposit") {
-    await User.findByIdAndUpdate(session.user._id, {
+    await UserScheme.findByIdAndUpdate(session.user._id, {
       totalBalance: user.totalBalance + parseFloat(body.amount),
     });
   }
