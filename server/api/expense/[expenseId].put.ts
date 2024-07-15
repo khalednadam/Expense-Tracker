@@ -1,6 +1,7 @@
 import { getServerSession } from "#auth";
 import httpStatus from "http-status";
 import { Expense } from "../models/expense.model";
+import { User } from "../models/user.model";
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
   if (!session) {
@@ -11,25 +12,24 @@ export default defineEventHandler(async (event) => {
   }
   const body = await readBody(event);
   const expenseId = getRouterParam(event, "expenseId");
-  if (!body.amount) {
-    throw createError({
-      message: "Please enter the amount",
-      statusCode: httpStatus.BAD_REQUEST,
-    });
-  }
-  if (!body.category) {
-    throw createError({
-      message: "Please enter the category",
-      statusCode: httpStatus.BAD_REQUEST,
-    });
-  }
-  if (!body.type) {
-    throw createError({
-      message: "Please enter the type",
-      statusCode: httpStatus.BAD_REQUEST,
-    });
-  }
+  const expense = await Expense.findById(expenseId);
   const updatedExpense = await Expense.findByIdAndUpdate(expenseId, body);
+  const user = await User.findById(session.user._id);
+
+  if (
+    expense &&
+    (expense.amount !== parseFloat(body.amount) || expense.type !== body.type)
+  ) {
+    if (user && body.type === "withdrawal") {
+      await User.findByIdAndUpdate(session.user._id, {
+        totalBalance: user.totalBalance - parseFloat(body.amount),
+      });
+    } else if (user && body.type === "deposit") {
+      await User.findByIdAndUpdate(session.user._id, {
+        totalBalance: user.totalBalance + parseFloat(body.amount),
+      });
+    }
+  }
 
   return {
     updatedExpense,
