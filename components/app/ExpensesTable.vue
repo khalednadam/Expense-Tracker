@@ -1,7 +1,10 @@
 <script setup lang="ts">
 const expenses = ref();
+
 onMounted(async () => {
-  expenses.value = (await $fetch(`/api/expense/expenses`)).expenses;
+  watchEffect(async () => {
+    expenses.value = (await $fetch(`/api/expense/expenses`)).expenses;
+  });
 });
 
 const search = ref("");
@@ -54,7 +57,8 @@ const headers = [
       ></v-text-field>
     </template>
     <v-data-table
-      density="compact"
+      density="comfortable"
+      :sort-by="[{ key: 'createdAt', order: 'desc' }]"
       :headers="headers"
       :items="expenses"
       :search="search"
