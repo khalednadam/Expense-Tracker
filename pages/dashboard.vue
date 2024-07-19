@@ -13,6 +13,7 @@ const { user } = storeToRefs(authStore);
 
 const session = ref();
 const addExpenseDialog = ref(false);
+const trend = ref();
 
 const loading = ref(false);
 const amount = ref(0);
@@ -50,6 +51,8 @@ const addExpense = async () => {
 
 watchEffect(async () => {
   session.value = await getSession();
+  trend.value = await $fetch("/api/expense/trend");
+  console.log(trend.value);
 });
 
 watch(expense, async () => {
@@ -70,8 +73,10 @@ watch(expense, async () => {
       </v-col>
       <v-col cols="3" class="justify-start flex flex-col">
         <div>
-          <p class="opacity-65">Most Common Category</p>
-          <h2 class="text-4xl font-bold" :key="expense">Food</h2>
+          <p class="opacity-65">You have spent the most on</p>
+          <h2 class="text-4xl font-bold" :key="expense">
+            {{ trend?.result._id }}
+          </h2>
         </div>
       </v-col>
 
