@@ -56,7 +56,7 @@ export default defineVuetifyConfiguration({
           // warning: "#fec90f",
           // error: "#fc4b6c",
           // secondary: "#f0ae00",
-          primary: "#6DB193",
+          primary: "#003285",
           secondary: "#FF5959",
           darkPrimary: "#6DB193",
           primaryTransparent: "#D7EAE2",
