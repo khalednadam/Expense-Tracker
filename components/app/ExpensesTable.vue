@@ -1,9 +1,12 @@
 <script setup lang="ts">
-const expenses = ref();
+import type { Expense } from "~/types/types";
+
+const expenses: Ref<Expense[] | undefined | readonly any[]> = ref(undefined);
 
 onMounted(async () => {
   watchEffect(async () => {
-    expenses.value = (await $fetch(`/api/expense/expenses`)).expenses;
+    expenses.value = (await $fetch(`/api/expense/expenses`))
+      .expenses as Expense[];
   });
 });
 
@@ -46,10 +49,18 @@ const headers = [
 ];
 
 const deleteItem = async (item: any) => {
-  const { data }: any = await $fetch(`/api/expense/${item._id}`, {
-    method: "delete",
-  });
-  console.log(data);
+  try {
+    await $fetch(`/api/expense/${item._id}`, {
+      method: "delete" as any,
+    });
+    if (expenses.value) {
+      expenses.value = expenses.value?.filter(
+        (expense: Expense) => expense._id !== item._id
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 <template>
