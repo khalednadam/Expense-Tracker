@@ -2,7 +2,7 @@
 import { useAuthStore } from "~/store/auth";
 import { ref } from "vue";
 import type { Ref } from "vue";
-import type { Trend, User } from "~/types/types";
+import type { Trend } from "~/types/types";
 
 definePageMeta({
   layout: "app",

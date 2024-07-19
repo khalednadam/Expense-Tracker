@@ -1,8 +1,6 @@
 import { getServerSession } from "#auth";
 import httpStatus from "http-status";
 import { Expense } from "@/server/api/models/expense.model";
-import { startOfMonth, endOfMonth } from "date-fns";
-import { PipelineStage } from "mongoose";
 import mongoose from "mongoose";
 import { Trend } from "~/types/types";
 

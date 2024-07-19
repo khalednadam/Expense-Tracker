@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Expense } from "~/types/types";
-import type ItemKeySlot from "vuetify-nuxt-module";
 const expenses: Ref<Expense[] | undefined | readonly any[]> = ref(undefined);
 
 onMounted(async () => {
