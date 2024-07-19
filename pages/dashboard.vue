@@ -2,7 +2,7 @@
 import { useAuthStore } from "~/store/auth";
 import { ref } from "vue";
 import type { Ref } from "vue";
-import type { User } from "~/types/types";
+import type { Trend, User } from "~/types/types";
 
 definePageMeta({
   layout: "app",
@@ -16,7 +16,7 @@ const { user } = storeToRefs(authStore);
 
 const session = ref();
 const addExpenseDialog = ref(false);
-const trend: Ref<any> = ref(null);
+const trend: Ref<Trend | null> = ref(null);
 
 const loading = ref(false);
 const amount = ref(0);
@@ -57,7 +57,14 @@ watchEffect(async () => {
 });
 
 onMounted(async () => {
-  trend.value = await $fetch("/api/expense/trend");
+  try {
+    const { data } = (await $fetch("/api/expense/trend", {
+      method: "GET",
+    })) as any;
+    trend.value = data;
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 watch(expense, async () => {
@@ -84,7 +91,7 @@ watch(expense, async () => {
         <div>
           <p class="opacity-65">You have spent the most on</p>
           <h2 class="text-4xl font-bold" :key="expense">
-            {{ trend?.result._id }}
+            {{ trend?._id }}
           </h2>
         </div>
       </v-col>

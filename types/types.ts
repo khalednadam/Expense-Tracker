@@ -21,3 +21,7 @@ export type Expense = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+export type Trend = {
+  _id: string;
+  totalSpent: number;
+};

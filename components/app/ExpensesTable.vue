@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Expense } from "~/types/types";
-
+import type ItemKeySlot from "vuetify-nuxt-module";
 const expenses: Ref<Expense[] | undefined | readonly any[]> = ref(undefined);
 
 onMounted(async () => {
@@ -48,7 +48,7 @@ const headers = [
   { title: "Actions", key: "actions", sortable: false },
 ];
 
-const deleteItem = async (item: any) => {
+const deleteItem = async (item: Expense) => {
   try {
     await $fetch(`/api/expense/${item._id}`, {
       method: "delete" as any,
@@ -88,7 +88,7 @@ const deleteItem = async (item: any) => {
         </v-icon>
         <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
-      <template v-slot:item.createdAt="{ item }: any">
+      <template v-slot:item.createdAt="{ item }">
         <div class="text-start">
           <p>
             {{
@@ -97,7 +97,7 @@ const deleteItem = async (item: any) => {
           </p>
         </div>
       </template>
-      <template v-slot:item.type="{ item }: any">
+      <template v-slot:item.type="{ item }">
         <div class="text-start">
           <v-chip
             :color="item.type === 'deposit' ? 'green' : 'red'"

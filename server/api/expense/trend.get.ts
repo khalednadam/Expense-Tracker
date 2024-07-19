@@ -4,6 +4,7 @@ import { Expense } from "@/server/api/models/expense.model";
 import { startOfMonth, endOfMonth } from "date-fns";
 import { PipelineStage } from "mongoose";
 import mongoose from "mongoose";
+import { Trend } from "~/types/types";
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
@@ -24,5 +25,5 @@ export default defineEventHandler(async (event) => {
     { $sort: { totalSpent: -1 } },
     { $limit: 1 },
   ]);
-  return { result: result[0] };
+  return { data: result[0] as Trend };
 });
