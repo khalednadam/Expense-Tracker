@@ -3,7 +3,12 @@ import type { User } from "~/types/types";
 export const useAuthStore = defineStore("auth", () => {
   const user: Ref<User | null> = ref(null);
   async function getUser() {
-    user.value = await $fetch("/api/user/");
+    try {
+      const { data }: any = await $fetch("/api/user");
+      user.value = data as any;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return { user, getUser };

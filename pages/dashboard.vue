@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from "~/store/auth";
+import { ref } from "vue";
+import type { Ref } from "vue";
+import type { User } from "~/types/types";
 
 definePageMeta({
   layout: "app",
@@ -13,7 +16,7 @@ const { user } = storeToRefs(authStore);
 
 const session = ref();
 const addExpenseDialog = ref(false);
-const trend = ref();
+const trend: Ref<any> = ref(null);
 
 const loading = ref(false);
 const amount = ref(0);
@@ -51,12 +54,18 @@ const addExpense = async () => {
 
 watchEffect(async () => {
   session.value = await getSession();
+});
+
+onMounted(async () => {
   trend.value = await $fetch("/api/expense/trend");
-  console.log(trend.value);
 });
 
 watch(expense, async () => {
-  await authStore.getUser();
+  try {
+    await authStore.getUser();
+  } catch (err) {
+  } finally {
+  }
 });
 </script>
 <template>
@@ -67,7 +76,7 @@ watch(expense, async () => {
         <div>
           <p class="opacity-65">Total Balance</p>
           <h2 class="text-4xl font-bold" :key="expense">
-            {{ user?.user.currency }} {{ user?.user.totalBalance }}
+            {{ user?.currency }} {{ user?.totalBalance }}
           </h2>
         </div>
       </v-col>

@@ -10,9 +10,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const user = await UserScheme.findById(session.user._id);
+  const data = await UserScheme.findById(session.user._id);
 
   return {
-    user,
+    data,
   };
 });

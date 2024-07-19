@@ -1,6 +1,6 @@
 import { getServerSession } from "#auth";
 import httpStatus from "http-status";
-import { Expense } from "../models/expense.model";
+import { Expense } from "../../models/expense.model";
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
   if (!session) {

@@ -42,7 +42,15 @@ const headers = [
     key: "description",
     title: "Description",
   },
+  { title: "Actions", key: "actions", sortable: false },
 ];
+
+const deleteItem = async (item: any) => {
+  const { data }: any = await $fetch(`/api/expense/${item._id}`, {
+    method: "delete",
+  });
+  console.log(data);
+};
 </script>
 <template>
   <v-card title="Expenses" variant="outlined">
@@ -63,6 +71,12 @@ const headers = [
       :items="expenses"
       :search="search"
     >
+      <template v-slot:item.actions="{ item }">
+        <v-icon class="me-2" size="small" @click="console.log(item)">
+          mdi-pencil
+        </v-icon>
+        <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
       <template v-slot:item.createdAt="{ item }: any">
         <div class="text-start">
           <p>
