@@ -61,6 +61,33 @@ const deleteItem = async (item: Expense) => {
     console.log(err);
   }
 };
+
+const expenseToUpdate: Ref<Expense | null> = ref(null);
+const updateExpenseDialog = ref(false);
+const loading = ref(false);
+const setExpenseToUpdateId = (expense: Expense) => {
+  updateExpenseDialog.value = true;
+  expenseToUpdate.value = expense;
+};
+const updateExpense = async () => {
+  loading.value = true;
+  try {
+    await $fetch(`/api/expense/${expenseToUpdate.value?._id}`, {
+      body: expenseToUpdate.value,
+      method: "put",
+    } as any);
+    updateExpenseDialog.value = false;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    loading.value = false;
+  }
+};
+watch(updateExpenseDialog, () => {
+  if (!updateExpenseDialog.value) {
+    expenseToUpdate.value = null;
+  }
+});
 </script>
 <template>
   <v-card title="Expenses" variant="outlined">
@@ -82,7 +109,7 @@ const deleteItem = async (item: Expense) => {
       :search="search"
     >
       <template v-slot:item.actions="{ item }">
-        <v-icon class="me-2" size="small" @click="console.log(item)">
+        <v-icon class="me-2" size="small" @click="setExpenseToUpdateId(item)">
           mdi-pencil
         </v-icon>
         <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -108,4 +135,73 @@ const deleteItem = async (item: Expense) => {
       </template>
     </v-data-table>
   </v-card>
+  <v-dialog
+    v-model="updateExpenseDialog"
+    v-if="expenseToUpdate"
+    class="lg:max-w-[50vw]"
+  >
+    <v-card>
+      <v-card-title>Edit expense</v-card-title>
+      <v-card-text>
+        <v-text-field
+          v-model="expenseToUpdate.amount"
+          type="number"
+          label="Amount"
+          placeholder="Enter the amount. 15 for example"
+        >
+        </v-text-field>
+        <v-select
+          label="Type"
+          v-model="expenseToUpdate.type"
+          :items="['withdrawal', 'deposit']"
+        ></v-select>
+        <v-autocomplete
+          v-if="expenseToUpdate.type && expenseToUpdate.type === 'withdrawal'"
+          v-model="expenseToUpdate.category"
+          label="Category"
+          :items="[
+            'Food',
+            'Clothing',
+            'Housing',
+            'Groceries',
+            'Transportation',
+            'Medical',
+            'Bills',
+            'Education',
+            'Entertainment',
+            'Dept',
+          ]"
+        ></v-autocomplete>
+        <v-autocomplete
+          v-else-if="expenseToUpdate.type && expenseToUpdate.type === 'deposit'"
+          v-model="expenseToUpdate.category"
+          label="Category"
+          :items="['Dept', 'Side Hustle', 'Salary']"
+        ></v-autocomplete>
+        <v-text-field
+          v-model="expenseToUpdate.serviceName"
+          label="Service name"
+        ></v-text-field>
+        <v-textarea
+          label="Description"
+          v-model="expenseToUpdate.description"
+        ></v-textarea>
+        <div class="w-full flex justify-end gap-2">
+          <v-btn
+            color="primary"
+            variant="outlined"
+            @click="() => (updateExpenseDialog = false)"
+            >Cancel</v-btn
+          >
+          <v-btn
+            color="primary"
+            :loading="loading"
+            :disabled="loading"
+            @click="updateExpense"
+            >Edit</v-btn
+          >
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
