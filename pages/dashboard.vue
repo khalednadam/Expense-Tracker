@@ -77,7 +77,6 @@ watch(expense, async () => {
 </script>
 <template>
   <NuxtLayout>
-    <h1 class="text-3xl font-bold">Dashboard</h1>
     <v-row class="my-5">
       <v-col cols="3" class="justify-center flex flex-col">
         <div>
@@ -126,6 +125,7 @@ watch(expense, async () => {
             :items="['withdrawal', 'deposit']"
           ></v-select>
           <v-autocomplete
+            v-if="type && type === 'withdrawal'"
             v-model="category"
             label="Category"
             :items="[
@@ -138,7 +138,14 @@ watch(expense, async () => {
               'Bills',
               'Education',
               'Entertainment',
+              'Dept',
             ]"
+          ></v-autocomplete>
+          <v-autocomplete
+            v-else-if="type && type === 'deposit'"
+            v-model="category"
+            label="Category"
+            :items="['Dept', 'Side Hustle', 'Salary']"
           ></v-autocomplete>
           <v-text-field
             v-model="serviceName"
