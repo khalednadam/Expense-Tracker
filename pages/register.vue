@@ -41,9 +41,11 @@ const email = useField("email");
 const name = useField("name");
 const password = useField("password");
 const confirmPassword = useField("confirmPassword");
+const { signIn } = useAuth();
+
 const submit = async () => {
   try {
-    const stat = await $fetch("/api/auth/register", {
+    const registeredUser = await $fetch("/api/auth/register", {
       method: "POST",
       body: {
         name: name.value.value,
@@ -51,8 +53,18 @@ const submit = async () => {
         email: email.value.value,
       },
     });
-    await navigateTo("/login");
-  } catch (err: any) { }
+    try {
+      await signIn("credentials", {
+        email: email.value.value,
+        password: password.value.value,
+        callbackUrl: "/dashboard",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  } catch (err: any) {
+    console.log(err);
+  }
 };
 </script>
 <template>
@@ -63,15 +75,31 @@ const submit = async () => {
       </v-card-title>
       <v-card-text>
         <form @submit.prevent="() => submit()">
-          <v-text-field v-model="name.value.value" label="Name" placeholder="John Doe">
+          <v-text-field
+            v-model="name.value.value"
+            label="Name"
+            placeholder="John Doe"
+          >
           </v-text-field>
-          <v-text-field label="Email" v-model="email.value.value" placeholder="john@example.com">
+          <v-text-field
+            label="Email"
+            v-model="email.value.value"
+            placeholder="john@example.com"
+          >
           </v-text-field>
-          <v-text-field v-model="password.value.value" type="password" label="Password"
-            placeholder="Enter your password">
+          <v-text-field
+            v-model="password.value.value"
+            type="password"
+            label="Password"
+            placeholder="Enter your password"
+          >
           </v-text-field>
-          <v-text-field v-model="confirmPassword.value.value" type="password" label="Password Confirmation"
-            placeholder="Enter your password again">
+          <v-text-field
+            v-model="confirmPassword.value.value"
+            type="password"
+            label="Password Confirmation"
+            placeholder="Enter your password again"
+          >
           </v-text-field>
           <v-btn type="submit">Register</v-btn>
         </form>
