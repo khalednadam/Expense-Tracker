@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   app: {
-    baseURL: process.env.AUTH_ORIGIN,
+    baseURL: "https://expense-tracker-indol-omega.vercel.app/",
   },
   runtimeConfig: {
     authSecret: process.env.AUTH_SECRET,
