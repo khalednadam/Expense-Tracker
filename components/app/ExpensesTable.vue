@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Expense } from "~/types/types";
 const expenses: Ref<Expense[] | undefined | readonly any[]> = ref(undefined);
+const { $toast } = useNuxtApp();
 
 onMounted(async () => {
   watchEffect(async () => {
@@ -10,7 +11,6 @@ onMounted(async () => {
 });
 
 const search = ref("");
-
 // CONST
 const fullDateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -58,7 +58,7 @@ const deleteItem = async (item: Expense) => {
       );
     }
   } catch (err) {
-    console.log(err);
+    $toast.error(err);
   }
 };
 
@@ -78,7 +78,7 @@ const updateExpense = async () => {
     } as any);
     updateExpenseDialog.value = false;
   } catch (err) {
-    console.log(err);
+    $toast.error(err);
   } finally {
     loading.value = false;
   }

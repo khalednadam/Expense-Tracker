@@ -8,7 +8,7 @@ definePageMeta({
     navigateAuthenticatedTo: "/dashboard",
   },
 });
-
+const { $toast } = useNuxtApp();
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
     email(value: string) {
@@ -37,7 +37,7 @@ async function handleLogin() {
       callbackUrl: "/dashboard",
     });
   } catch (e) {
-    console.log(e);
+    $toast.error(e);
   }
 }
 </script>

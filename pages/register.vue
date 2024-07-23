@@ -9,6 +9,8 @@ definePageMeta({
   },
 });
 
+const { $toast } = useNuxtApp();
+
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
     name(value: string) {
@@ -60,10 +62,10 @@ const submit = async () => {
         callbackUrl: "/dashboard",
       });
     } catch (err) {
-      console.log(err);
+      $toast.error(err);
     }
   } catch (err: any) {
-    console.log(err);
+    $toast.error(err);
   }
 };
 </script>

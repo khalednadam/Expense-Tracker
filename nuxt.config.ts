@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     authSecret: process.env.AUTH_SECRET,
   },
+  css: ["vue-toast-notification/dist/theme-default.css"],
   imports: { autoImport: true },
   devtools: { enabled: true },
   modules: [

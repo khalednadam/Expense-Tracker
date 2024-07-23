@@ -9,6 +9,7 @@ definePageMeta({
   middleware: "auth",
 });
 
+const { $toast } = useNuxtApp();
 const { getSession } = useAuth();
 const authStore = useAuthStore();
 
@@ -40,7 +41,7 @@ const addExpense = async () => {
       },
     });
   } catch (err) {
-    console.log(err);
+    $toast.error(err);
   } finally {
     loading.value = false;
     amount.value = 0;
@@ -63,7 +64,7 @@ onMounted(async () => {
     })) as any;
     trend.value = data;
   } catch (err) {
-    console.log(err);
+    $toast.error(err);
   }
 });
 
@@ -71,6 +72,7 @@ watch(expense, async () => {
   try {
     await authStore.getUser();
   } catch (err) {
+    $toast.error(err);
   } finally {
   }
 });
