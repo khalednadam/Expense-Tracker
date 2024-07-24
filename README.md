@@ -8,7 +8,6 @@ A simple and efficient expense tracker built with Nuxt 3 and MongoDB. This proje
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 - Add, edit, and delete expenses
@@ -17,7 +16,7 @@ A simple and efficient expense tracker built with Nuxt 3 and MongoDB. This proje
 - Visualize spending patterns with charts
 
 ## Demo
-A live demo of the application is available [here](#).
+A live demo of the application is available [here](https://expense-tracker-indol-omega.vercel.app/).
 
 ## Installation
 To get started with this project, follow these steps:
@@ -68,9 +67,3 @@ We welcome contributions! Please follow these steps to contribute:
     ```bash
     git push origin feature/your-feature-name
     ```
-6. Open a pull request
-
-Please make sure your code adheres to the project's coding standards and includes appropriate tests.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
