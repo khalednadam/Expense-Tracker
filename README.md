@@ -1,76 +1,76 @@
-# Nuxt 3 Minimal Starter
+# Expense Tracker
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A simple and efficient expense tracker built with Nuxt 3 and MongoDB. This project allows users to manage their expenses and visualize their spending patterns.
 
-## Setup
+## Table of Contents
+- [Features](#features)
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-Make sure to install the dependencies:
+## Features
+- Add, edit, and delete expenses
+- Categorize expenses
+- View expense history
+- Visualize spending patterns with charts
 
-```bash
-# npm
-npm install
+## Demo
+A live demo of the application is available [here](#).
 
-# pnpm
-pnpm install
+## Installation
+To get started with this project, follow these steps:
 
-# yarn
-yarn install
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/your-username/expense-tracker.git
+    cd expense-tracker
+    ```
 
-# bun
-bun install
-```
+2. **Install dependencies**
+    ```bash
+    npm install
+    ```
 
-## Development Server
+3. **Set up environment variables**
+    Create a `.env` file in the root directory and add the following variables:
+    ```plaintext
+    MONGODB_URI=your_mongodb_connection_string
+    AUTH_ORIGIN="http://localhost:3000"
+    AUTH_SECRET="your-super-auth-secret"
+    ```
 
-Start the development server on `http://localhost:3000`:
+4. **Run the application**
+    ```bash
+    npm run dev
+    ```
 
-```bash
-# npm
-npm run dev
+    The application will be available at `http://localhost:3000`.
 
-# pnpm
-pnpm run dev
+## Usage
+Once the application is running, you can start adding your expenses, categorizing them, and viewing your expense history. The intuitive UI makes it easy to manage and track your expenses efficiently.
 
-# yarn
-yarn dev
+## Contributing
+We welcome contributions! Please follow these steps to contribute:
 
-# bun
-bun run dev
-```
+1. Fork the repository
+2. Create a new branch
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+3. Make your changes
+4. Commit your changes
+    ```bash
+    git commit -m "Add your message here"
+    ```
+5. Push to the branch
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+6. Open a pull request
 
-## Production
+Please make sure your code adheres to the project's coding standards and includes appropriate tests.
 
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# todoit
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
